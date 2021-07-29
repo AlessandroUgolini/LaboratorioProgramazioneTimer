@@ -3,4 +3,4 @@ project(ProgettoTimerLaboratorio)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(ProgettoTimerLaboratorio main.cpp Timer.cpp Timer.h WDClock.cpp WDClock.h)
+add_executable(ProgettoTimerLaboratorio main.cpp Timer.cpp Timer.h WDClock.cpp WDClock.h Subject.h Observer.h)
