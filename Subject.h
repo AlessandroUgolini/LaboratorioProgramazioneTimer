@@ -5,6 +5,8 @@
 #ifndef PROGETTOTIMERLABORATORIO_SUBJECT_H
 #define PROGETTOTIMERLABORATORIO_SUBJECT_H
 
+#include "Observer.h"
+
 class Subject {
 protected:
     virtual ~Subject() {};

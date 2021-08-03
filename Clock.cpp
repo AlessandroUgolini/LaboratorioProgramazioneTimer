@@ -2,31 +2,31 @@
 // Created by alessandro on 26/07/21.
 //
 
-#include "WDClock.h"
+#include "Clock.h"
 #include "thread"
 #include "unistd.h"
 
 
-WDClock::~WDClock() {
+Clock::~Clock() {
 
 }
 
-WDClock::WDClock() {
+Clock::Clock() {
     total_seconds=time(0);
     ct= localtime(&total_seconds);
     std::thread(begin());
 }
 
-tm *WDClock::getCt() const {
+tm *Clock::getCt() const {
     return ct;
 }
 
-void WDClock::refresh() {
+void Clock::refresh() {
     total_seconds=time(0);
     ct= localtime(&total_seconds);
 }
 
-void WDClock::begin() {
+void Clock::begin() {
     while(true) {
         refresh();
         //TODO aggiungere il notify per gli observer
@@ -34,6 +34,6 @@ void WDClock::begin() {
     }
 }
 
-void WDClock::end() {
+void Clock::end() {
 
 }

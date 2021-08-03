@@ -6,8 +6,10 @@
 #define PROGETTOTIMERLABORATORIO_TIMER_H
 
 #include <chrono>
+#include "Subject.h"
+#include <wx/wx.h>
 
-class Timer{
+class Timer : public wxTimer {
 public:
 
     Timer();

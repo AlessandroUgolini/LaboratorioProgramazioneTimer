@@ -2,6 +2,7 @@
 // Created by alessandro on 24/07/21.
 //
 
+#include <unistd.h>
 #include "Timer.h"
 
 Timer::Timer(): hour(0), min(0), sec(0){}
@@ -43,8 +44,10 @@ void Timer::setRunning(bool running) {
 }
 
 void Timer::start() {
-    Timer::running=true;
-    Timer::loop();
+    if(!Stopwatch::running) {
+        Timer::running = true;
+        Timer::loop();
+    }
 }
 
 void Timer::stop() {
@@ -72,7 +75,8 @@ void Timer::loop() {
             Timer::min=59;
             Timer::hour--;
         }
-        //TODO aggiungere lo sleep di 1 secondo
+        sleep(1);
         //TODO aggiungere anche la notifica all'observer
     }
+    return;
 }
