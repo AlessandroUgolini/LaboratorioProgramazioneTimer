@@ -4,11 +4,13 @@
 
 #include "cMain.h"
 #include "clockFrame.h"
+#include "timerFrame.h"
+#include "stopwatchFrame.h"
 
 wxBEGIN_EVENT_TABLE(cMain, wxFrame)
     EVT_BUTTON(1, cMain::TimerButtonClicked)
     EVT_BUTTON(2, cMain::StopwatchButtonClicked)
-    EVT_BUTTON(3, cMain::WDClockButtonClicked)
+    EVT_BUTTON(3, cMain::ClockButtonClicked)
 wxEND_EVENT_TABLE()
 
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Time Management Application",wxPoint(30, 30),wxSize(800,450)){
@@ -22,12 +24,21 @@ cMain::~cMain() {
 }
 
 void cMain::TimerButtonClicked(wxCommandEvent &evt) {
-    clockFrame *Frame= new clockFrame12(this, wxID_ANY,"Wall Digital Clock",wxPoint(100,100),wxSize(50,50));
-    Frame->Show();
+    timerFrame *tFrame= new timerFrame(this, wxID_ANY,"Timer",wxPoint(100,100),wxSize(50,50));
+    tFrame->Show();
+    evt.Skip();
 }
 
 void cMain::StopwatchButtonClicked(wxCommandEvent &evt){
+    stopwatchFrame *sFrame= new stopwatchFrame(this, wxID_ANY,"Stopwatch",wxPoint(100,100),wxSize(50,50));
+    sFrame->Show();
+    evt.Skip();
+}
 
+void cMain::ClockButtonClicked(wxCommandEvent &evt) {
+    clockFrame *cFrame= new clockFrame(this, wxID_ANY,"Clock",wxPoint(100,100),wxSize(50,50));
+    cFrame->Show();
+    evt.Skip();
 }
 
 

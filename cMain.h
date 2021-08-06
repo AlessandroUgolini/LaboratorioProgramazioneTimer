@@ -18,7 +18,7 @@ public:
 
     void TimerButtonClicked(wxCommandEvent &evt);
     void StopwatchButtonClicked(wxCommandEvent &evt);
-    void WDClockButtonClicked(wxCommandEvent &evt);
+    void ClockButtonClicked(wxCommandEvent &evt);
 
     wxDECLARE_EVENT_TABLE();
 };

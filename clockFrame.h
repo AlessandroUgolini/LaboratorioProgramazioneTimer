@@ -6,12 +6,24 @@
 #define PROGETTOTIMERLABORATORIO_CLOCKFRAME_H
 
 #include <wx/wx.h>
+#include "Clock.h"
 
 class clockFrame :public wxFrame {
 public:
     clockFrame(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size);
-
     virtual ~clockFrame();
+
+private:
+    wxTextCtrl* m_timeDisplay24=nullptr;
+    wxTextCtrl* m_timeDisplay12=nullptr;
+    wxTextCtrl* m_timeDisplayDate=nullptr;
+    char* time24h;
+    char* time12h;
+    char* timeDay;
+    Clock* c=nullptr;
+
+    wxDECLARE_EVENT_TABLE();
+    void OnClose(wxCloseEvent& evt);
 };
 
 

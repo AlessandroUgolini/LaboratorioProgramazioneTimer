@@ -7,7 +7,7 @@
 
 #include <wx/wx.h>
 
-class stopwatchFrame {
+class stopwatchFrame :public wxFrame{
 public:
     stopwatchFrame(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size);
 

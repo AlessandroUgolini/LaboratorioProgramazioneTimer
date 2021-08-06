@@ -5,25 +5,33 @@
 #ifndef PROGETTOTIMERLABORATORIO_CLOCK_H
 #define PROGETTOTIMERLABORATORIO_CLOCK_H
 
-#include <ctime>
+#include <chrono>
 #include "Subject.h"
 #include <wx/wx.h>
 
 class Clock : public wxTimer{
 
 public:
-    Clock();
+    Clock(wxTextCtrl* b24,wxTextCtrl* b12, wxTextCtrl* bDay);
     virtual ~Clock();
 
-    tm* getCt() const;
+    void Notify() override;
+
+    char *getTb24() const;
+
+    char *getTb12() const;
+
+    char *getTbday() const;
 
 private:
-    void refresh();
-    void begin();
-    void end();
+    std::chrono::time_point<std::chrono::system_clock> sc;
+    char* tb24;
+    char* tb12;
+    char* tbday;
+    wxTextCtrl* tBox24;
+    wxTextCtrl* tBox12;
+    wxTextCtrl* tBoxDay;
 
-    time_t total_seconds;
-    struct tm* ct;
 };
 
 

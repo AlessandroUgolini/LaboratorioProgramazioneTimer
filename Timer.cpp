@@ -44,7 +44,7 @@ void Timer::setRunning(bool running) {
 }
 
 void Timer::start() {
-    if(!Stopwatch::running) {
+    if(!Timer::running) {
         Timer::running = true;
         Timer::loop();
     }
