@@ -12,7 +12,7 @@
 class Timer : public wxTimer {
 public:
 
-    Timer();
+    Timer(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs);
 
     virtual ~Timer();
 
@@ -38,12 +38,25 @@ public:
 
     void reset();
 
-    void loop();
+    void Notify() override;
+
+    void update();
 
 private:
 
+    std::string extendTime(int time){
+        std::string tString=std::to_string(time);
+        if(time<10)
+            tString="0"+tString;
+        return tString;
+    }
+
     int hour,min,sec;
     bool running;
+
+    wxTextCtrl* bh;
+    wxTextCtrl* bm;
+    wxTextCtrl* bs;
 };
 
 #endif //PROGETTOTIMERLABORATORIO_TIMER_H

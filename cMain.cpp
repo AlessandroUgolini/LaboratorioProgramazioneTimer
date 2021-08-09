@@ -24,19 +24,19 @@ cMain::~cMain() {
 }
 
 void cMain::TimerButtonClicked(wxCommandEvent &evt) {
-    timerFrame *tFrame= new timerFrame(this, wxID_ANY,"Timer",wxPoint(100,100),wxSize(50,50));
+    timerFrame *tFrame= new timerFrame(this, wxID_ANY,"Timer",wxPoint(100,100),wxSize(200,200));
     tFrame->Show();
     evt.Skip();
 }
 
 void cMain::StopwatchButtonClicked(wxCommandEvent &evt){
-    stopwatchFrame *sFrame= new stopwatchFrame(this, wxID_ANY,"Stopwatch",wxPoint(100,100),wxSize(50,50));
+    stopwatchFrame *sFrame= new stopwatchFrame(this, wxID_ANY,"Stopwatch",wxPoint(100,100),wxSize(200,200));
     sFrame->Show();
     evt.Skip();
 }
 
 void cMain::ClockButtonClicked(wxCommandEvent &evt) {
-    clockFrame *cFrame= new clockFrame(this, wxID_ANY,"Clock",wxPoint(100,100),wxSize(50,50));
+    clockFrame *cFrame= new clockFrame(this, wxID_ANY,"Clock",wxPoint(100,100),wxSize(200,200));
     cFrame->Show();
     evt.Skip();
 }

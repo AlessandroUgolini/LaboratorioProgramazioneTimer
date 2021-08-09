@@ -8,19 +8,22 @@
 #include <wx/wx.h>
 #include "Clock.h"
 
+//TODO lavorare per sistemare la grafica del cronometro
+//TODO vedere se è possibile eliminare i buffer da qui e da clock
+
 class clockFrame :public wxFrame {
 public:
     clockFrame(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size);
     virtual ~clockFrame();
 
 private:
-    wxTextCtrl* m_timeDisplay24=nullptr;
-    wxTextCtrl* m_timeDisplay12=nullptr;
-    wxTextCtrl* m_timeDisplayDate=nullptr;
+    wxTextCtrl* m_timeDisplay24;
+    wxTextCtrl* m_timeDisplay12;
+    wxTextCtrl* m_timeDisplayDate;
     char* time24h;
     char* time12h;
     char* timeDay;
-    Clock* c=nullptr;
+    Clock* c;
 
     wxDECLARE_EVENT_TABLE();
     void OnClose(wxCloseEvent& evt);

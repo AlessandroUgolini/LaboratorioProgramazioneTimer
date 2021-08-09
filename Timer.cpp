@@ -5,7 +5,11 @@
 #include <unistd.h>
 #include "Timer.h"
 
-Timer::Timer(): hour(0), min(0), sec(0){}
+Timer::Timer(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs): hour(0), min(0), sec(0){
+    this->bh=bh;
+    this->bm=bm;
+    this->bs=bs;
+}
 
 Timer::~Timer(){
 
@@ -17,6 +21,7 @@ int Timer::getHour() const {
 
 void Timer::setHour(int hour) {
     Timer::hour=hour;
+    update();
 }
 
 int Timer::getMin() const {
@@ -25,6 +30,7 @@ int Timer::getMin() const {
 
 void Timer::setMin(int min) {
     Timer::min=min;
+    update();
 }
 
 int Timer::getSec() const {
@@ -33,6 +39,7 @@ int Timer::getSec() const {
 
 void Timer::setSec(int sec) {
     Timer::sec=sec;
+    update();
 }
 
 bool Timer::isRunning() const {
@@ -46,37 +53,65 @@ void Timer::setRunning(bool running) {
 void Timer::start() {
     if(!Timer::running) {
         Timer::running = true;
-        Timer::loop();
+        Start(1000,false);
     }
 }
 
 void Timer::stop() {
-    Timer::running=false;
+    if(Timer::running) {
+        Stop();
+        Timer::running = false;
+    }
 }
 
 void Timer::reset() {
+    Stop();
     Timer::running=false;
     Timer::hour=0;
     Timer::min=0;
     Timer::sec=0;
+    update();
 }
 
-void Timer::loop() {
-    while(Timer::running){
-        Timer::sec--;
+void Timer::Notify() {
+    if(Timer::running){
         if(Timer::hour==0 && Timer::min==0 && Timer::sec==0){
-            Timer::running=false;
+            Timer::stop();
         }
-        if(Timer::sec<0){
-            Timer::sec=59;
-            Timer::min--;
+        else {
+            Timer::sec--;
+            update();
         }
-        if(Timer::min<0){
-            Timer::min=59;
-            Timer::hour--;
-        }
-        sleep(1);
-        //TODO aggiungere anche la notifica all'observer
+
     }
-    return;
+
 }
+
+void Timer::update() {
+    if(Timer::sec>59){
+        Timer::sec=0;
+        Timer::min++;
+    }
+    if(Timer::min>59){
+        Timer::min=0;
+        Timer::hour++;
+    }
+    if(Timer::hour>99){
+        Timer::hour=0;
+    }
+    if(Timer::sec<0){
+        Timer::sec=59;
+        Timer::min--;
+    }
+    if(Timer::min<0){
+        Timer::min=59;
+        Timer::hour--;
+    }
+    if(Timer::hour<0){
+        Timer::hour=99;
+    }
+    bh->Replace(0,80,extendTime(getHour()));
+    bm->Replace(0,80,extendTime(getMin()));
+    bs->Replace(0,80,extendTime(getSec()));
+}
+
