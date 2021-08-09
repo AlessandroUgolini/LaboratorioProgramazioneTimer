@@ -82,9 +82,7 @@ void Timer::Notify() {
             Timer::sec--;
             update();
         }
-
     }
-
 }
 
 void Timer::update() {
@@ -114,4 +112,12 @@ void Timer::update() {
     bm->Replace(0,80,extendTime(getMin()));
     bs->Replace(0,80,extendTime(getSec()));
 }
+
+std::string Timer::extendTime(int time){
+    std::string tString=std::to_string(time);
+    if(time<10)
+        tString="0"+tString;
+    return tString;
+}
+
 

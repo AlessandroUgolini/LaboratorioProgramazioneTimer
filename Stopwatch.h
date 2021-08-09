@@ -5,14 +5,20 @@
 #ifndef PROGETTOTIMERLABORATORIO_STOPWATCH_H
 #define PROGETTOTIMERLABORATORIO_STOPWATCH_H
 
+#include <wx/wx.h>
 
-class Stopwatch {
+class Stopwatch :public wxTimer{
 public:
-    Stopwatch();
+    Stopwatch(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs);
     virtual ~Stopwatch();
+
     void start();
     void stop();
     void reset();
+
+    void Notify() override;
+
+    void update();
 
     int getHour() const;
     void setHour(int hour);
@@ -28,10 +34,14 @@ public:
 
 private:
 
-    void loop();
+    std::string extendTime(int time);
 
     int hour,min,sec;
     bool running;
+
+    wxTextCtrl* bh;
+    wxTextCtrl* bm;
+    wxTextCtrl* bs;
 
 };
 

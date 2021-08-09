@@ -44,12 +44,7 @@ public:
 
 private:
 
-    std::string extendTime(int time){
-        std::string tString=std::to_string(time);
-        if(time<10)
-            tString="0"+tString;
-        return tString;
-    }
+    std::string extendTime(int time);
 
     int hour,min,sec;
     bool running;
