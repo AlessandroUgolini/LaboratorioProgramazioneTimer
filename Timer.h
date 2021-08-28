@@ -6,13 +6,13 @@
 #define PROGETTOTIMERLABORATORIO_TIMER_H
 
 #include <chrono>
-#include "Subject.h"
 #include <wx/wx.h>
+
 
 class Timer : public wxTimer {
 public:
 
-    Timer(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs);
+    Timer(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs,wxEvtHandler* owner,int id);
 
     virtual ~Timer();
 
@@ -42,16 +42,19 @@ public:
 
     void update();
 
+    bool isZero();
+
 private:
 
     std::string extendTime(int time);
 
-    int hour,min,sec;
+    int hour,min,sec,id;
     bool running;
 
     wxTextCtrl* bh;
     wxTextCtrl* bm;
     wxTextCtrl* bs;
+
 };
 
 #endif //PROGETTOTIMERLABORATORIO_TIMER_H

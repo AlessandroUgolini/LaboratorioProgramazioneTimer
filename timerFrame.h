@@ -8,15 +8,16 @@
 #include <wx/wx.h>
 #include "Timer.h"
 
-//TODO aggiungere che le caselle sono solo in lettura
-//TODO aggiungere un piccolo modo per mostrare che il timer scorre
-//TODO lavorare sulla grafica del timer
-
 class timerFrame:public wxFrame {
 public:
     timerFrame(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size);
 
     virtual ~timerFrame();
+
+    wxTextCtrl *getBoxHour() const;
+    wxTextCtrl *getBoxMin() const;
+    wxTextCtrl *getBoxSec() const;
+
 private:
     wxTextCtrl* boxHour;
     wxButton* hourUp;
@@ -30,8 +31,7 @@ private:
     wxButton* secUp;
     wxButton* secDown;
 
-    wxButton* startButton;
-    wxButton* stopButton;
+    wxButton* startStopButton;
     wxButton* resetButton;
 
     wxTextCtrl* sep1;
@@ -42,6 +42,7 @@ private:
     char* bs;
 
     Timer* t;
+    wxTimer* t2;
 
     wxDECLARE_EVENT_TABLE();
 
@@ -58,7 +59,14 @@ private:
     void onStopClicked(wxCommandEvent &evt);
     void onResetClicked(wxCommandEvent &evt);
 
+    void OnTimer(wxTimerEvent &evt);
+
+    void refresh();
+    void hideButtons();
+
     void OnClose(wxCloseEvent& evt);
+
+    void popUp();
 
 
 };

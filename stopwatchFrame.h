@@ -19,8 +19,7 @@ private:
     wxTextCtrl* boxMin;
     wxTextCtrl* boxSec;
 
-    wxButton* startButton;
-    wxButton* stopButton;
+    wxButton* startStopButton;
     wxButton* resetButton;
 
     wxTextCtrl* sep1;

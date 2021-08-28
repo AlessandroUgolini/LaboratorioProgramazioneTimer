@@ -9,7 +9,7 @@
 #include "Clock.h"
 
 //TODO lavorare per sistemare la grafica del cronometro
-//TODO vedere se è possibile eliminare i buffer da qui e da clock
+
 
 class clockFrame :public wxFrame {
 public:

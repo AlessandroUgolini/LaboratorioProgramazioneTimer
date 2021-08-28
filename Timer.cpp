@@ -5,10 +5,13 @@
 #include <unistd.h>
 #include "Timer.h"
 
-Timer::Timer(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs): hour(0), min(0), sec(0){
-    this->bh=bh;
-    this->bm=bm;
-    this->bs=bs;
+Timer::Timer(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs,wxEvtHandler* owner,int id): wxTimer(owner,id){
+    Timer::hour=0;
+    Timer::min=0;
+    Timer::sec=0;
+    Timer::bh=bh;
+    Timer::bm=bm;
+    Timer::bs=bs;
 }
 
 Timer::~Timer(){
@@ -75,13 +78,8 @@ void Timer::reset() {
 
 void Timer::Notify() {
     if(Timer::running){
-        if(Timer::hour==0 && Timer::min==0 && Timer::sec==0){
-            Timer::stop();
-        }
-        else {
-            Timer::sec--;
+            sec--;
             update();
-        }
     }
 }
 
@@ -119,5 +117,14 @@ std::string Timer::extendTime(int time){
         tString="0"+tString;
     return tString;
 }
+
+bool Timer::isZero(){
+    if(Timer::hour==0 && Timer::min==0 && Timer::sec==0){
+        return true;
+    }
+    else
+        return false;
+}
+
 
 

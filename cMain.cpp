@@ -13,10 +13,11 @@ wxBEGIN_EVENT_TABLE(cMain, wxFrame)
     EVT_BUTTON(3, cMain::ClockButtonClicked)
 wxEND_EVENT_TABLE()
 
-cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Time Management Application",wxPoint(30, 30),wxSize(800,450)){
-    m_btn1= new wxButton(this, 1, "Timer", wxPoint(350,50),wxSize(200,30));
-    m_btn2= new wxButton(this, 2, "Stopwatch",wxPoint(350,100),wxSize(200,30));
-    m_btn3= new wxButton(this, 3, "Wall digital clock",wxPoint(350,150),wxSize(200,30));
+cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Time Management Application",wxPoint(30, 30),wxSize(450,250)){
+    SetBackgroundColour(*wxBLACK);
+    m_btn1= new wxButton(this, 1, "Timer", wxPoint(125,50),wxSize(200,30));
+    m_btn2= new wxButton(this, 2, "Stopwatch",wxPoint(125,100),wxSize(200,30));
+    m_btn3= new wxButton(this, 3, "Wall digital clock",wxPoint(125,150),wxSize(200,30));
 }
 
 cMain::~cMain() {
@@ -24,13 +25,13 @@ cMain::~cMain() {
 }
 
 void cMain::TimerButtonClicked(wxCommandEvent &evt) {
-    timerFrame *tFrame= new timerFrame(this, wxID_ANY,"Timer",wxPoint(100,100),wxSize(200,200));
+    timerFrame *tFrame= new timerFrame(this, 10,"Timer",wxPoint(100,100),wxSize(210,200));
     tFrame->Show();
     evt.Skip();
 }
 
 void cMain::StopwatchButtonClicked(wxCommandEvent &evt){
-    stopwatchFrame *sFrame= new stopwatchFrame(this, wxID_ANY,"Stopwatch",wxPoint(100,100),wxSize(200,200));
+    stopwatchFrame *sFrame= new stopwatchFrame(this, wxID_ANY,"Stopwatch",wxPoint(100,100),wxSize(210,200));
     sFrame->Show();
     evt.Skip();
 }

@@ -6,7 +6,6 @@
 #define PROGETTOTIMERLABORATORIO_CLOCK_H
 
 #include <chrono>
-#include "Subject.h"
 #include <wx/wx.h>
 
 class Clock : public wxTimer{

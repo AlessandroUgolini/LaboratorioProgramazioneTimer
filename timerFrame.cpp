@@ -7,37 +7,41 @@
 wxBEGIN_EVENT_TABLE(timerFrame,wxFrame)
                 EVT_CLOSE(timerFrame::OnClose)
 
-                EVT_BUTTON(1, timerFrame::onHourUpClicked)
-                EVT_BUTTON(2, timerFrame::onHourDownClicked)
-                EVT_BUTTON(3, timerFrame::onMinUpClicked)
-                EVT_BUTTON(4, timerFrame::onMinDownClicked)
-                EVT_BUTTON(5, timerFrame::onSecUpClicked)
-                EVT_BUTTON(6, timerFrame::onSecDownClicked)
-                EVT_BUTTON(7,timerFrame::onStartClicked)
-                EVT_BUTTON(8,timerFrame::onStopClicked)
-                EVT_BUTTON(9,timerFrame::onResetClicked)
+                EVT_BUTTON(11, timerFrame::onHourUpClicked)
+                EVT_BUTTON(12, timerFrame::onHourDownClicked)
+                EVT_BUTTON(13, timerFrame::onMinUpClicked)
+                EVT_BUTTON(14, timerFrame::onMinDownClicked)
+                EVT_BUTTON(15, timerFrame::onSecUpClicked)
+                EVT_BUTTON(16, timerFrame::onSecDownClicked)
+                EVT_BUTTON(17,timerFrame::onStartClicked)
+                EVT_BUTTON(18,timerFrame::onStopClicked)
+                EVT_BUTTON(19,timerFrame::onResetClicked)
+
+                EVT_TIMER(-1,timerFrame::OnTimer)
 
 wxEND_EVENT_TABLE()
 
 timerFrame::timerFrame(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos,
                        const wxSize &size) : wxFrame(parent, id, title, pos, size) {
-    boxHour=new wxTextCtrl(this,wxID_ANY,"00",wxPoint(10,30),wxSize(40,20));
-    boxMin=new wxTextCtrl(this,wxID_ANY,"00",wxPoint(70,30),wxSize(40,20));
-    boxSec=new wxTextCtrl(this,wxID_ANY,"00",wxPoint(120,30),wxSize(40,20));
-    sep1=new wxTextCtrl(this,wxID_ANY,":",wxPoint(50,30),wxSize(20,20));
-    sep2=new wxTextCtrl(this,wxID_ANY,":",wxPoint(100,30),wxSize(20,20));
+    SetBackgroundColour(*wxBLACK);
+    boxHour=new wxTextCtrl(this,wxID_ANY,"00",wxPoint(10,60),wxSize(50,20),wxBORDER_NONE|wxTE_READONLY|wxTE_CENTRE);
+    boxMin=new wxTextCtrl(this,wxID_ANY,"00",wxPoint(80,60),wxSize(50,20),wxBORDER_NONE|wxTE_READONLY|wxTE_CENTRE);
+    boxSec=new wxTextCtrl(this,wxID_ANY,"00",wxPoint(150,60),wxSize(50,20),wxBORDER_NONE|wxTE_READONLY|wxTE_CENTRE);
+    sep1=new wxTextCtrl(this,wxID_ANY,":",wxPoint(60,60),wxSize(20,20),wxBORDER_NONE|wxTE_READONLY|wxTE_CENTRE);
+    sep2=new wxTextCtrl(this,wxID_ANY,":",wxPoint(130,60),wxSize(20,20),wxBORDER_NONE|wxTE_READONLY|wxTE_CENTRE);
 
-    hourUp=new wxButton(this, 1, "^", wxPoint(10,5),wxSize(40,20));
-    hourDown=new wxButton(this, 2, "v", wxPoint(10,55),wxSize(40,20));
-    minUp=new wxButton(this, 3, "^", wxPoint(70,5),wxSize(40,20));
-    minDown=new wxButton(this, 4, "V", wxPoint(70,55),wxSize(40,20));
-    secUp=new wxButton(this, 5, "^", wxPoint(120,5),wxSize(40,20));
-    secDown=new wxButton(this, 6, "V", wxPoint(120,55),wxSize(40,20));
+    hourUp=new wxButton(this, 11, "+", wxPoint(15,35),wxSize(40,20));
+    hourDown=new wxButton(this, 12, "-", wxPoint(15,85),wxSize(40,20));
+    minUp=new wxButton(this, 13, "+", wxPoint(85,35),wxSize(40,20));
+    minDown=new wxButton(this, 14, "-", wxPoint(85,85),wxSize(40,20));
+    secUp=new wxButton(this, 15, "+", wxPoint(155,35),wxSize(40,20));
+    secDown=new wxButton(this, 16, "-", wxPoint(155,85),wxSize(40,20));
 
-    startButton=new wxButton(this, 7, "Start",wxPoint(10,85),wxSize(60,30));
-    stopButton=new wxButton(this, 8, "Stop",wxPoint(80,85),wxSize(60,30));
-    resetButton=new wxButton(this, 9, "Reset",wxPoint(150,85),wxSize(60,30));
-    t= new Timer(boxHour,boxMin,boxSec);
+    startStopButton=new wxButton(this, 17, "Start",wxPoint(30,115),wxSize(60,30));
+    resetButton=new wxButton(this, 19, "Reset",wxPoint(120,115),wxSize(60,30));
+    t= new Timer(boxHour,boxMin,boxSec,this,10);
+    t2=new wxTimer(this,-1);
+
 }
 
 timerFrame::~timerFrame() {}
@@ -45,46 +49,113 @@ timerFrame::~timerFrame() {}
 void timerFrame::onHourUpClicked(wxCommandEvent &evt) {
     if(! t->isRunning())
         t->setHour(t->getHour()+1);
+    evt.Skip();
 }
 
 void timerFrame::onHourDownClicked(wxCommandEvent &evt) {
     if(! t->isRunning())
         t->setHour(t->getHour()-1);
+    evt.Skip();
 }
 
 void timerFrame::onMinUpClicked(wxCommandEvent &evt) {
     if(! t->isRunning())
         t->setMin(t->getMin()+1);
+    evt.Skip();
 }
 
 void timerFrame::onMinDownClicked(wxCommandEvent &evt) {
     if(! t->isRunning())
         t->setMin(t->getMin()-1);
+    evt.Skip();
 }
 
 void timerFrame::onSecUpClicked(wxCommandEvent &evt) {
     if(! t->isRunning())
         t->setSec(t->getSec()+1);
+    evt.Skip();
 }
 
 void timerFrame::onSecDownClicked(wxCommandEvent &evt) {
     if(! t->isRunning())
         t->setSec(t->getSec()-1);
+    evt.Skip();
 }
 
 void timerFrame::onStartClicked(wxCommandEvent &evt){
-    t->start();
+    if(t->getHour()!=0 || t->getMin()!=0 || t->getSec()!=0) {
+        t->start();
+        t2->Start(1000,false);
+        timerFrame::hideButtons();
+    }
+    evt.Skip();
 }
 
 void timerFrame::onStopClicked(wxCommandEvent &evt){
     t->stop();
+    t2->Stop();
+    timerFrame::refresh();
+    evt.Skip();
 }
 
 void timerFrame::onResetClicked(wxCommandEvent &evt){
     t->reset();
+    t2->Stop();
+    timerFrame::refresh();
+    evt.Skip();
+}
+
+void timerFrame::OnTimer(wxTimerEvent &evt){
+    if(t->getSec()==0 && t->getMin()==0 && t->getHour()==0){
+        t->stop();
+        t2->Stop();
+        t->update();
+        timerFrame::popUp();
+        timerFrame::refresh();
+    }
+
+    evt.Skip();
 }
 
 void timerFrame::OnClose(wxCloseEvent &evt) {
-    t->~Timer();
+    t->stop();
     Destroy();
+    evt.Skip();
+}
+
+wxTextCtrl *timerFrame::getBoxHour() const {
+    return boxHour;
+}
+
+wxTextCtrl *timerFrame::getBoxMin() const {
+    return boxMin;
+}
+
+wxTextCtrl *timerFrame::getBoxSec() const {
+    return boxSec;
+}
+
+void timerFrame::refresh(){
+    hourUp->Show();
+    hourDown->Show();
+    minUp->Show();
+    minDown->Show();
+    secUp->Show();
+    secDown->Show();
+    startStopButton=new wxButton(this, 17, "Start",wxPoint(30,115),wxSize(60,30));
+}
+
+void timerFrame::hideButtons(){
+    hourUp->Hide();
+    hourDown->Hide();
+    minUp->Hide();
+    minDown->Hide();
+    secUp->Hide();
+    secDown->Hide();
+    startStopButton=new wxButton(this, 18, "Stop",wxPoint(30,115),wxSize(60,30));
+}
+
+
+void timerFrame::popUp(){
+    wxMessageBox(wxT("TIME HAS RUN OUT"), wxT("Timer"),wxICON_INFORMATION);
 }
