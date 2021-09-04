@@ -17,7 +17,7 @@ wxBEGIN_EVENT_TABLE(timerFrame,wxFrame)
                 EVT_BUTTON(18,timerFrame::onStopClicked)
                 EVT_BUTTON(19,timerFrame::onResetClicked)
 
-                EVT_TIMER(-1,timerFrame::OnTimer)
+                EVT_TIMER(10,timerFrame::OnTimer)
 
 wxEND_EVENT_TABLE()
 
@@ -39,103 +39,97 @@ timerFrame::timerFrame(wxWindow *parent, wxWindowID id, const wxString &title, c
 
     startStopButton=new wxButton(this, 17, "Start",wxPoint(30,115),wxSize(60,30));
     resetButton=new wxButton(this, 19, "Reset",wxPoint(120,115),wxSize(60,30));
-    t= new Timer(boxHour,boxMin,boxSec,this,10);
-    t2=new wxTimer(this,-1);
+    t= new Timer(this,10);
 
 }
 
 timerFrame::~timerFrame() {}
 
 void timerFrame::onHourUpClicked(wxCommandEvent &evt) {
-    if(! t->isRunning())
-        t->setHour(t->getHour()+1);
-    evt.Skip();
+    if(! t->isRunning()) {
+        t->setHour(t->getHour() + 1);
+        refresh();
+    }
 }
 
 void timerFrame::onHourDownClicked(wxCommandEvent &evt) {
-    if(! t->isRunning())
-        t->setHour(t->getHour()-1);
-    evt.Skip();
+    if(! t->isRunning()) {
+        t->setHour(t->getHour() - 1);
+        refresh();
+    }
 }
 
 void timerFrame::onMinUpClicked(wxCommandEvent &evt) {
-    if(! t->isRunning())
-        t->setMin(t->getMin()+1);
-    evt.Skip();
+    if(! t->isRunning()) {
+        t->setMin(t->getMin() + 1);
+        refresh();
+    }
 }
 
 void timerFrame::onMinDownClicked(wxCommandEvent &evt) {
-    if(! t->isRunning())
-        t->setMin(t->getMin()-1);
-    evt.Skip();
+    if(! t->isRunning()) {
+        t->setMin(t->getMin() - 1);
+        refresh();
+    }
 }
 
 void timerFrame::onSecUpClicked(wxCommandEvent &evt) {
-    if(! t->isRunning())
-        t->setSec(t->getSec()+1);
-    evt.Skip();
+    if(! t->isRunning()) {
+        t->setSec(t->getSec() + 1);
+        refresh();
+    }
 }
 
 void timerFrame::onSecDownClicked(wxCommandEvent &evt) {
-    if(! t->isRunning())
-        t->setSec(t->getSec()-1);
-    evt.Skip();
+    if(! t->isRunning()) {
+        t->setSec(t->getSec() - 1);
+        refresh();
+    }
 }
 
 void timerFrame::onStartClicked(wxCommandEvent &evt){
-    if(t->getHour()!=0 || t->getMin()!=0 || t->getSec()!=0) {
+    if(t->isZero()==false) {
         t->start();
-        t2->Start(1000,false);
         timerFrame::hideButtons();
     }
-    evt.Skip();
 }
 
 void timerFrame::onStopClicked(wxCommandEvent &evt){
     t->stop();
-    t2->Stop();
     timerFrame::refresh();
-    evt.Skip();
+    timerFrame::showButtons();
 }
 
 void timerFrame::onResetClicked(wxCommandEvent &evt){
     t->reset();
-    t2->Stop();
     timerFrame::refresh();
-    evt.Skip();
+    timerFrame::showButtons();
 }
 
 void timerFrame::OnTimer(wxTimerEvent &evt){
-    if(t->getSec()==0 && t->getMin()==0 && t->getHour()==0){
+    t->setSec((t->getSec())-1);
+    t->update();
+    refresh();
+    if(t->isZero()){
         t->stop();
-        t2->Stop();
-        t->update();
         timerFrame::popUp();
-        timerFrame::refresh();
+        timerFrame::showButtons();
     }
-
-    evt.Skip();
 }
 
 void timerFrame::OnClose(wxCloseEvent &evt) {
     t->stop();
+    t->~Timer();
     Destroy();
-    evt.Skip();
-}
-
-wxTextCtrl *timerFrame::getBoxHour() const {
-    return boxHour;
-}
-
-wxTextCtrl *timerFrame::getBoxMin() const {
-    return boxMin;
-}
-
-wxTextCtrl *timerFrame::getBoxSec() const {
-    return boxSec;
 }
 
 void timerFrame::refresh(){
+    boxHour->Replace(0,80,t->extendTime(t->getHour()));
+    boxMin->Replace(0,80,t->extendTime(t->getMin()));
+    boxSec->Replace(0,80,t->extendTime(t->getSec()));
+}
+
+void timerFrame::showButtons(){
     hourUp->Show();
     hourDown->Show();
     minUp->Show();

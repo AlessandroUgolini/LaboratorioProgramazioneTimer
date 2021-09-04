@@ -5,17 +5,33 @@
 #include <unistd.h>
 #include "Timer.h"
 
-Timer::Timer(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs,wxEvtHandler* owner,int id): wxTimer(owner,id){
-    Timer::hour=0;
-    Timer::min=0;
-    Timer::sec=0;
-    Timer::bh=bh;
-    Timer::bm=bm;
-    Timer::bs=bs;
+Timer::Timer(wxEvtHandler* owner,int id): hour(0), min(0), sec(0) {
+    tim=new wxTimer(owner,id);
 }
 
 Timer::~Timer(){
+}
 
+void Timer::start() {
+    if(!Timer::running) {
+        Timer::running = true;
+        tim->Start(1000,false);
+    }
+}
+
+void Timer::stop() {
+    if(Timer::running) {
+        tim->Stop();
+        Timer::running = false;
+    }
+}
+
+void Timer::reset() {
+    tim->Stop();
+    Timer::running=false;
+    Timer::hour=0;
+    Timer::min=0;
+    Timer::sec=0;
 }
 
 int Timer::getHour() const {
@@ -53,36 +69,6 @@ void Timer::setRunning(bool running) {
     Timer::running = running;
 }
 
-void Timer::start() {
-    if(!Timer::running) {
-        Timer::running = true;
-        Start(1000,false);
-    }
-}
-
-void Timer::stop() {
-    if(Timer::running) {
-        Stop();
-        Timer::running = false;
-    }
-}
-
-void Timer::reset() {
-    Stop();
-    Timer::running=false;
-    Timer::hour=0;
-    Timer::min=0;
-    Timer::sec=0;
-    update();
-}
-
-void Timer::Notify() {
-    if(Timer::running){
-            sec--;
-            update();
-    }
-}
-
 void Timer::update() {
     if(Timer::sec>59){
         Timer::sec=0;
@@ -106,9 +92,6 @@ void Timer::update() {
     if(Timer::hour<0){
         Timer::hour=99;
     }
-    bh->Replace(0,80,extendTime(getHour()));
-    bm->Replace(0,80,extendTime(getMin()));
-    bs->Replace(0,80,extendTime(getSec()));
 }
 
 std::string Timer::extendTime(int time){

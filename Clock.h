@@ -8,29 +8,21 @@
 #include <chrono>
 #include <wx/wx.h>
 
-class Clock : public wxTimer{
+class Clock{
 
 public:
-    Clock(wxTextCtrl* b24,wxTextCtrl* b12, wxTextCtrl* bDay);
+    Clock(wxEvtHandler *handlerC,int id);
     virtual ~Clock();
 
-    void Notify() override;
-
-    char *getTb24() const;
-
-    char *getTb12() const;
-
-    char *getTbday() const;
+    std::string getTime24();
+    std::string getTime12();
+    std::string getTimeDay();
 
 private:
-    std::chrono::time_point<std::chrono::system_clock> sc;
-    char* tb24;
-    char* tb12;
-    char* tbday;
-    wxTextCtrl* tBox24;
-    wxTextCtrl* tBox12;
-    wxTextCtrl* tBoxDay;
+    std::time_t getTime();
 
+    std::chrono::time_point<std::chrono::system_clock> sc;
+    wxTimer* tim;
 };
 
 

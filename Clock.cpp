@@ -5,45 +5,43 @@
 #include "Clock.h"
 
 
-Clock::Clock(wxTextCtrl* b24,wxTextCtrl* b12, wxTextCtrl* bDay) {
-    tb24=new char[80];
-    tb12=new char[80];
-    tbday=new char[80];
+Clock::Clock(wxEvtHandler *handlerC,int id) {
+
     Clock::sc=std::chrono::system_clock::now();
     std::time_t now_c=std::chrono::system_clock::to_time_t(sc);
-    std::strftime(tb24, 80, "%H:%M:%S", std::localtime(&now_c));
-    std::strftime(tb12, 80, "%I:%M:%S:%p", std::localtime(&now_c));
-    std::strftime(tbday,80,"%Y-%m-%d",std::localtime(&now_c));
-    tBox24=b24;
-    tBox12=b12;
-    tBoxDay=bDay;
+    tim= new wxTimer(handlerC,id);
+    tim->Start(1000,false);
 }
 
 Clock::~Clock() {
-    delete[] tb24;
-    delete[] tb12;
-    delete[] tbday;
+    tim->Stop();
+    tim->~wxTimer();
 }
 
-void Clock::Notify() {
-    Clock::sc=std::chrono::system_clock::now();
+std::time_t Clock::getTime(){
+    sc=std::chrono::system_clock::now();
     std::time_t now_c=std::chrono::system_clock::to_time_t(sc);
-    std::strftime(tb24, 80, "%H:%M:%S", std::localtime(&now_c));
-    std::strftime(tb12, 80, "%I:%M:%S:%p", std::localtime(&now_c));
-    std::strftime(tbday,80,"%Y-%m-%d",std::localtime(&now_c));
-    tBox24->Replace(0,80,tb24);
-    tBox12->Replace(0,80,tb12);
-    tBoxDay->Replace(0,80,tbday);
+    return now_c;
 }
 
-char *Clock::getTb24() const {
-    return tb24;
+std::string Clock::getTime24(){
+    std::time_t rawTime=Clock::getTime();
+    char time24 [80];
+    std::strftime(time24, 80, "%H:%M:%S", std::localtime(&rawTime));
+    return time24;
 }
 
-char *Clock::getTb12() const {
-    return tb12;
+std::string Clock::getTime12(){
+
+    std::time_t rawTime=Clock::getTime();
+    char time12 [80];
+    std::strftime(time12, 80, "%I:%M:%S:%p", std::localtime(&rawTime));
+    return time12;
 }
 
-char *Clock::getTbday() const {
-    return tbday;
+std::string Clock::getTimeDay(){
+    std::time_t rawTime=Clock::getTime();
+    char timeDay [80];
+    std::strftime(timeDay,80,"%Y-%m-%d",std::localtime(&rawTime));
+    return timeDay;
 }

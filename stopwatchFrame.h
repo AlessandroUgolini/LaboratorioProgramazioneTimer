@@ -15,19 +15,17 @@ public:
     virtual ~stopwatchFrame();
 
 private:
+    void refresh();
+
     wxTextCtrl* boxHour;
     wxTextCtrl* boxMin;
     wxTextCtrl* boxSec;
 
-    wxButton* startStopButton;
-    wxButton* resetButton;
-
     wxTextCtrl* sep1;
     wxTextCtrl* sep2;
 
-    char* bh;
-    char* bm;
-    char* bs;
+    wxButton* startStopButton;
+    wxButton* resetButton;
 
     Stopwatch* s;
 
@@ -38,6 +36,8 @@ wxDECLARE_EVENT_TABLE();
     void onResetClicked(wxCommandEvent &evt);
 
     void OnClose(wxCloseEvent& evt);
+
+    void OnStopwatch(wxTimerEvent &evt);
 
 };
 

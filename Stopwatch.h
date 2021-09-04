@@ -7,16 +7,14 @@
 
 #include <wx/wx.h>
 
-class Stopwatch :public wxTimer{
+class Stopwatch{
 public:
-    Stopwatch(wxTextCtrl* bh,wxTextCtrl* bm,wxTextCtrl* bs);
+    Stopwatch(wxEvtHandler *handlerSW,int id);
     virtual ~Stopwatch();
 
     void start();
     void stop();
     void reset();
-
-    void Notify() override;
 
     void update();
 
@@ -32,17 +30,13 @@ public:
     bool isRunning() const;
     void setRunning(bool running);
 
-private:
-
     std::string extendTime(int time);
 
+private:
+
+    wxTimer* tim;
     int hour,min,sec;
     bool running;
-
-    wxTextCtrl* bh;
-    wxTextCtrl* bm;
-    wxTextCtrl* bs;
-
 };
 
 

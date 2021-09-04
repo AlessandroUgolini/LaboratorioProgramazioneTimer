@@ -20,13 +20,12 @@ private:
     wxTextCtrl* m_timeDisplay24;
     wxTextCtrl* m_timeDisplay12;
     wxTextCtrl* m_timeDisplayDate;
-    char* time24h;
-    char* time12h;
-    char* timeDay;
+
     Clock* c;
 
     wxDECLARE_EVENT_TABLE();
     void OnClose(wxCloseEvent& evt);
+    void OnClock(wxTimerEvent &evt);
 };
 
 

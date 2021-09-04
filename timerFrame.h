@@ -14,10 +14,6 @@ public:
 
     virtual ~timerFrame();
 
-    wxTextCtrl *getBoxHour() const;
-    wxTextCtrl *getBoxMin() const;
-    wxTextCtrl *getBoxSec() const;
-
 private:
     wxTextCtrl* boxHour;
     wxButton* hourUp;
@@ -31,18 +27,13 @@ private:
     wxButton* secUp;
     wxButton* secDown;
 
-    wxButton* startStopButton;
-    wxButton* resetButton;
-
     wxTextCtrl* sep1;
     wxTextCtrl* sep2;
 
-    char* bh;
-    char* bm;
-    char* bs;
+    wxButton* startStopButton;
+    wxButton* resetButton;
 
     Timer* t;
-    wxTimer* t2;
 
     wxDECLARE_EVENT_TABLE();
 
@@ -61,14 +52,13 @@ private:
 
     void OnTimer(wxTimerEvent &evt);
 
-    void refresh();
-    void hideButtons();
-
     void OnClose(wxCloseEvent& evt);
 
+    void refresh();
+    void showButtons();
+    void hideButtons();
+
     void popUp();
-
-
 };
 
 
