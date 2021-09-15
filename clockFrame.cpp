@@ -35,3 +35,7 @@ void clockFrame::OnClock(wxTimerEvent &evt){
     m_timeDisplayDate->Replace(0,80,tbday);
     evt.Skip();
 }
+
+Clock *clockFrame::getC() const {
+    return c;
+}

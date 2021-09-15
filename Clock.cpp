@@ -13,6 +13,12 @@ Clock::Clock(wxEvtHandler *handlerC,int id) {
     tim->Start(1000,false);
 }
 
+Clock::Clock() {
+    Clock::sc=std::chrono::system_clock::now();
+    std::time_t now_c=std::chrono::system_clock::to_time_t(sc);
+    tim= new wxTimer;
+}
+
 Clock::~Clock() {
     tim->Stop();
     tim->~wxTimer();
@@ -45,3 +51,7 @@ std::string Clock::getTimeDay(){
     std::strftime(timeDay,80,"%Y-%m-%d",std::localtime(&rawTime));
     return timeDay;
 }
+
+
+
+

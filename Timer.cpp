@@ -13,7 +13,7 @@ Timer::~Timer(){
 }
 
 void Timer::start() {
-    if(!Timer::running) {
+    if(!Timer::running && !Timer::isZero()) {
         Timer::running = true;
         tim->Start(1000,false);
     }

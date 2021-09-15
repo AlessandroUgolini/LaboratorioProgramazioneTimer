@@ -8,13 +8,12 @@
 #include <wx/wx.h>
 #include "Clock.h"
 
-//TODO lavorare per sistemare la grafica del cronometro
-
-
 class clockFrame :public wxFrame {
 public:
     clockFrame(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size);
     virtual ~clockFrame();
+
+    Clock *getC() const;
 
 private:
     wxTextCtrl* m_timeDisplay24;

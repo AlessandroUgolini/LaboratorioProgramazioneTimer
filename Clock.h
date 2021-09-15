@@ -12,14 +12,17 @@ class Clock{
 
 public:
     Clock(wxEvtHandler *handlerC,int id);
+    Clock();
+
     virtual ~Clock();
 
     std::string getTime24();
     std::string getTime12();
     std::string getTimeDay();
 
-private:
     std::time_t getTime();
+
+private:
 
     std::chrono::time_point<std::chrono::system_clock> sc;
     wxTimer* tim;

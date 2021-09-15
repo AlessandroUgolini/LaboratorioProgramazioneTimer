@@ -12,6 +12,8 @@ class stopwatchFrame :public wxFrame{
 public:
     stopwatchFrame(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos, const wxSize &size);
 
+    Stopwatch* getS() const;
+
     virtual ~stopwatchFrame();
 
 private:

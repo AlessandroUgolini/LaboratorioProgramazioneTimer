@@ -65,3 +65,7 @@ void stopwatchFrame::refresh(){
     boxMin->Replace(0,80,s->extendTime(s->getMin()));
     boxSec->Replace(0,80,s->extendTime(s->getSec()));
 }
+
+Stopwatch *stopwatchFrame::getS() const {
+    return s;
+}
