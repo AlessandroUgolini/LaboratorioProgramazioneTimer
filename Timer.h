@@ -25,7 +25,6 @@ public:
     void setSec(int sec);
 
     bool isRunning() const;
-    void setRunning(bool running);
 
     void start();
     void stop();

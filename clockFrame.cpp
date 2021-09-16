@@ -27,9 +27,9 @@ void clockFrame::OnClose(wxCloseEvent& evt){
 }
 
 void clockFrame::OnClock(wxTimerEvent &evt){
-    std::string tb24=c->getTime24();
-    std::string tb12=c->getTime12();
-    std::string tbday=c->getTimeDay();
+    std::string tb24=c->getTimeString(Clock::Format::H24);
+    std::string tb12=c->getTimeString(Clock::Format::H12);
+    std::string tbday=c->getTimeString(Clock::Format::Date);
     m_timeDisplay24->Replace(0,80,tb24);
     m_timeDisplay12->Replace(0,80,tb12);
     m_timeDisplayDate->Replace(0,80,tbday);

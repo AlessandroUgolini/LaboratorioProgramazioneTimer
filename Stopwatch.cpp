@@ -65,10 +65,6 @@ bool Stopwatch::isRunning() const {
     return running;
 }
 
-void Stopwatch::setRunning(bool running) {
-    Stopwatch::running = running;
-}
-
 std::string Stopwatch::extendTime(int time){
     std::string tString=std::to_string(time);
     if(time<10)

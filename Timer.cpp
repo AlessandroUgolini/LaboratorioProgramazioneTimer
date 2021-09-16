@@ -65,10 +65,6 @@ bool Timer::isRunning() const {
     return running;
 }
 
-void Timer::setRunning(bool running) {
-    Timer::running = running;
-}
-
 void Timer::update() {
     if(Timer::sec>59){
         Timer::sec=0;

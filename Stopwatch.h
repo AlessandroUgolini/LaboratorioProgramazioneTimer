@@ -28,7 +28,6 @@ public:
     void setSec(int sec);
 
     bool isRunning() const;
-    void setRunning(bool running);
 
     std::string extendTime(int time);
 

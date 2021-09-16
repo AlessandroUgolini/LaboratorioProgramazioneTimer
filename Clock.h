@@ -16,9 +16,9 @@ public:
 
     virtual ~Clock();
 
-    std::string getTime24();
-    std::string getTime12();
-    std::string getTimeDay();
+    enum class Format{H24, H12, Date};
+
+    std::string getTimeString(Format f);
 
     std::time_t getTime();
 

@@ -25,21 +25,21 @@ protected:
 };
 
 TEST_F(ClockTest, GetTime24){
-    std::string myTime=c->getTime24();
+    std::string myTime=c->getTimeString(Clock::Format::H24);
     std::strftime(timeStr, 80, "%H:%M:%S", std::localtime(&now));
     std::string timeS(timeStr);
     ASSERT_TRUE(timeS==myTime);
 }
 
 TEST_F(ClockTest, GetTime12){
-    std::string myTime=c->getTime12();
+    std::string myTime=c->getTimeString(Clock::Format::H12);
     std::strftime(timeStr, 80, "%I:%M:%S:%p", std::localtime(&now));
     std::string timeS(timeStr);
     ASSERT_TRUE(timeS==myTime);
 }
 
 TEST_F(ClockTest, GetTimeDay) {
-    std::string myTime = c->getTimeDay();
+    std::string myTime = c->getTimeString(Clock::Format::Date);
     std::strftime(timeStr, 80, "%Y-%m-%d", std::localtime(&now));
     std::string timeS(timeStr);
     ASSERT_TRUE(timeS==myTime);
